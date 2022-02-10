@@ -1,7 +1,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta 
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Luweh Adjim Ngarti Exaucé &amp; Laamoumri Yassine" />
+
+<meta name="date" content="2022-01-02" />
+
+<title>Projet Open Data : Football</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+
+
+
+
+
+<link rel="stylesheet" href="index_files/style.css" type="text/css" />
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<section class="page-header">
+<h1 class="title toc-ignore project-name">Projet Open Data : Football</h1>
+<h4 class="author project-author">Luweh Adjim Ngarti Exaucé &amp; Laamoumri Yassine</h4>
+<h4 class="date project-date">01/02/2022</h4>
+</section>
+
+
+
+<section class="main-content">
+<div id="description-du-projet" class="section level1">
+<h1>Description du projet</h1>
+<p>Le football est un sport populaire suscitant un grand intérêt aux quatres coins du monde. Avec l’avènement de la collecte massives de données dans ce sport, il est naturel de se demander comment les utiliser pour améliorer les performances des équipes et créer encore plus de spectacle. En effet, durant chaque match des centaines de statistiques sont calculées ce qui permet d’avoir un flux de données en continue qui ne demande qu’à être analyser pour y retrouver des interprétations que l’œil humain aurait du mal à voir.</p>
+</div>
+<div id="objectif" class="section level1">
+<h1>Objectif</h1>
+<p>L’objectif de se projet sera tout d’abord de déterminer grâce à des méthodes de clustering quelles sont les profils des équipes selon leur position lors du classement final. Idéalement, l’objectif final serait de prédire la position d’une équipe dans le classement final</p>
+</div>
+<div id="base-de-données" class="section level1">
+<h1>Base de données</h1>
+<p>Les données que nous allons utiliser sont issues de Transfermarket</p>
+<p>Notre base de données est issue du site <strong>understat</strong> qui collecte les données championnats européens. Nous avons récupéré trois fichiers csv :</p>
+<ul>
+<li><p><em>understat.com.csv</em> qui correspond au classement d’une équipe à un moment donné de la saison</p></li>
+<li><p><em>understat_per_game.csv</em> qui correspond aux statistiques collectés pour chaque match</p></li>
+<li><p><em><strong>npxGD</strong> : Différence entre les buts attendus “pour” et “contre” sans pénalités ni buts contre leur camp.</p></li>
+    <li><p><strong>ppda_coef</strong>: passes autorisées par action défensive dans la moitié de terrain adverse (pouvoir de pression)</p></li>
+    <li><p><strong>oppda_coef</strong> : passes de l’adversaire autorisées par action défensive dans la moitié de terrain de l’adversaire (puiss>transfermarkt_fbref_201819.csv’</em> qui correspond aux informations sur les joueurs</p></li>
+</ul>
+<p>L’ensemble des matchs ont eu lieu dans les 6 grands championnats européens entre 2014 et 2019 de nombreuses statistiques qui peuvent être propre au football telle que les <strong>xG : Expected goals</strong> que l’on détaillera plus tard.</p>
+<p>Nous avons en tout plus de <strong>400</strong> prédicteurs dont:</p>
+<ul>
+<li><p><strong>xG</strong> : mesure des buts attendus, il s’agit d’une mesure statistique de la qualité des occasions créées et concédées.</p></li>
+<li><p><strong>xG_diff</strong> : différence entre les buts effectivement marqués et les buts attendus.</p></li>
+<li><p><strong>npxG</strong> : nombre de buts attendus sans les penalties et les buts contre son camp.</p></li>
+<li><p><strong>xGA</strong>: buts contre attendus.</p></li>
+<li><p><strong>xGA_diff</strong>: différence entre les buts réels manqués et les buts attendus contre.</p></li>
+<li><p><strong>npxGA</strong>: nombre de buts contre prévus sans pénalités ni buts contre son camp.</p></li>
+<li><p><strong>npxGD</strong> : Différence entre les buts attendus “pour” et “contre” sans pénalités ni buts contre leur camp.</p></li>
+<li><p><strong>ppda_coef</strong>: passes autorisées par action défensive dans la moitié de terrain adverse (pouvoir de pression)</p></li>
+<li><p><strong>oppda_coef</strong> : passes de l’adversaire autorisées par action défensive dans la moitié de terrain de l’adversaire (puissance de la pression de l’adversaire).</p></li>
+<li><p><strong>deep</strong>: passes complétées à une distance estimée à 20 yards du but (croix exclues)</p></li>
+<li><p><strong>deep_allowed</strong>: passes de l’adversaire réalisées à une distance estimée à 20 mètres du but (croix exclues)</p></li>
+<li><p><strong>xpts</strong>: points attendus</p></li>
+<li><p><strong>xpts_diff</strong>: différence entre les points réels et les points attendus</p></li>
+</ul>
+<p>Dans ce travail, nous allons nous concentrer sur le championnat espagnol, dans une première partie nous allons faire une analyse descriptive du championnat et des équipes, puis à partir des statistiques déterminer les équipes ayant des profils similaires, ensuite en considérant des variables n’ayant pas un lien direct avec l’issu d’un match telles le nombre de passes, nous allons prédire le classement final à partir des données de mi-saison, concernant les joueurs nous allons prédire leurs valeurs marchandes à partir des performances.</p>
+<p>En fin, afin de savoir si les informations inférées au cours de cette étude peuvent être vraies dans d’autres championnats, nous allons faire une étude comparatives des championnats.</p>
+</div>
+</section>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
+name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
   margin: 0;
@@ -88,36 +191,44 @@ body {
 
 
 <section class="main-content">
-<div id="description-du-projet" class="section level1">
-<h1>Description du projet</h1>
-<p>Le football est un sport populaire suscitant un grand intérêt aux quatres coins du monde. Avec l’avènement de la collecte massives de données dans ce sport, il est naturel de se demander comment les utiliser pour améliorer les performances des équipes et créer encore plus de spectacle. En effet, durant chaque match des centaines de statistiques sont calculées ce qui permet d’avoir un flux de données en continue qui ne demande qu’à être analyser pour y retrouver des interprétations que l’œil humain aurait du mal à voir.</p>
-</div>
-<div id="objectif" class="section level1">
-<h1>Objectif</h1>
-<p>L’objectif de se projet sera tout d’abord de déterminer grâce à des méthodes de clustering quelles sont les profils des équipes selon leur position lors du classement final. Idéalement, l’objectif final serait de prédire la position d’une équipe dans le classement final</p>
-</div>
-<div id="base-de-données" class="section level1">
-<h1>Base de données</h1>
-<p>Les données que nous allons utiliser sont issues de Transfermarket</p>
-<p>Notre base de données est issue du site <strong>understat</strong> qui collecte les données championnats européens. Nous avons récupéré deux fichiers csv : - <em>understat.com.csv</em> qui correspond au classement d’une équipe à un moment donné de la saison - <em>understat_per_game.csv</em> qui correspond aux statistiques collectés pour chaque match</p>
-<p>L’ensemble des matchs ont eu lieu dans les 6 grands championnats européens entre 2014 et 2019 de nombreuses statistiques qui peuvent être propre au football tel que les <strong>xG : Expected goals</strong> que l’on détaillera plus tard.</p>
-<ul>
-<li><p>xG - expected goals metric, it is a statistical measure of the quality of chances created and conceded. More at understat.com</p></li>
-<li><p>xG_diff - difference between actual goals scored and expected goals.</p></li>
-<li><p>npxG - expected goals without penalties and own goals.</p></li>
-<li><p>xGA - expected goals against.</p></li>
-<li><p>xGA_diff - difference between actual goals missed and expected goals against.</p></li>
-<li><p>npxGA - expected goals against without penalties and own goals.</p></li>
-<li><p>npxGD - difference between “for” and “against” expected goals without penalties and own goals.</p></li>
-<li><p>ppda_coef - passes allowed per defensive action in the opposition half (power of pressure)</p></li>
-<li><p>oppda_coef - opponent passes allowed per defensive action in the opposition half (power of - opponent’s pressure)</p></li>
-<li><p>deep - passes completed within an estimated 20 yards of goal (crosses excluded)</p></li>
-<li><p>deep_allowed - opponent passes completed within an estimated 20 yards of goal (crosses excluded)</p></li>
-<li><p>xpts - expected points</p></li>
-<li><p>xpts_diff - difference between actual and expected points</p></li>
-</ul>
-</div>
-</section>
+    <div id="description-du-projet" class="section level1">
+    <h1>Description du projet</h1>
+    <p>Le football est un sport populaire suscitant un grand intérêt aux quatres coins du monde. Avec l’avènement de la collecte massives de données dans ce sport, il est naturel de se demander comment les utiliser pour améliorer les performances des équipes et créer encore plus de spectacle. En effet, durant chaque match des centaines de statistiques sont calculées ce qui permet d’avoir un flux de données en continue qui ne demande qu’à être analyser pour y retrouver des interprétations que l’œil humain aurait du mal à voir.</p>
+    </div>
+    <div id="objectif" class="section level1">
+    <h1>Objectif</h1>
+    <p>L’objectif de se projet sera tout d’abord de déterminer grâce à des méthodes de clustering quelles sont les profils des équipes selon leur position lors du classement final. Idéalement, l’objectif final serait de prédire la position d’une équipe dans le classement final</p>
+    </div>
+    <div id="base-de-données" class="section level1">
+    <h1>Base de données</h1>
+    <p>Les données que nous allons utiliser sont issues de Transfermarket</p>
+    <p>Notre base de données est issue du site <strong>understat</strong> qui collecte les données championnats européens. Nous avons récupéré trois fichiers csv :</p>
+    <ul>
+    <li><p><em>understat.com.csv</em> qui correspond au classement d’une équipe à un moment donné de la saison</p></li>
+    <li><p><em>understat_per_game.csv</em> qui correspond aux statistiques collectés pour chaque match</p></li>
+    <li><p><em>transfermarkt_fbref_201819.csv’</em> qui correspond aux informations sur les joueurs</p></li>
+    </ul>
+    <p>L’ensemble des matchs ont eu lieu dans les 6 grands championnats européens entre 2014 et 2019 de nombreuses statistiques qui peuvent être propre au football telle que les <strong>xG : Expected goals</strong> que l’on détaillera plus tard.</p>
+    <p>Nous avons en tout plus de <strong>400</strong> prédicteurs dont:</p>
+    <ul>
+    <li><p><strong>xG</strong> : mesure des buts attendus, il s’agit d’une mesure statistique de la qualité des occasions créées et concédées.</p></li>
+    <li><p><strong>xG_diff</strong> : différence entre les buts effectivement marqués et les buts attendus.</p></li>
+    <li><p><strong>npxG</strong> : nombre de buts attendus sans les penalties et les buts contre son camp.</p></li>
+    <li><p><strong>xGA</strong>: buts contre attendus.</p></li>
+    <li><p><strong>xGA_diff</strong>: différence entre les buts réels manqués et les buts attendus contre.</p></li>
+    <li><p><strong>npxGA</strong>: nombre de buts contre prévus sans pénalités ni buts contre son camp.</p></li>
+    <li><p><strong>npxGD</strong> : Différence entre les buts attendus “pour” et “contre” sans pénalités ni buts contre leur camp.</p></li>
+    <li><p><strong>ppda_coef</strong>: passes autorisées par action défensive dans la moitié de terrain adverse (pouvoir de pression)</p></li>
+    <li><p><strong>oppda_coef</strong> : passes de l’adversaire autorisées par action défensive dans la moitié de terrain de l’adversaire (puissance de la pression de l’adversaire).</p></li>
+    <li><p><strong>deep</strong>: passes complétées à une distance estimée à 20 yards du but (croix exclues)</p></li>
+    <li><p><strong>deep_allowed</strong>: passes de l’adversaire réalisées à une distance estimée à 20 mètres du but (croix exclues)</p></li>
+    <li><p><strong>xpts</strong>: points attendus</p></li>
+    <li><p><strong>xpts_diff</strong>: différence entre les points réels et les points attendus</p></li>
+    </ul>
+    <p>Dans ce travail, nous allons nous concentrer sur le championnat espagnol, dans une première partie nous allons faire une analyse descriptive du championnat et des équipes, puis à partir des statistiques déterminer les équipes ayant des profils similaires, ensuite en considérant des variables n’ayant pas un lien direct avec l’issu d’un match telles le nombre de passes, nous allons prédire le classement final à partir des données de mi-saison, concernant les joueurs nous allons prédire leurs valeurs marchandes à partir des performances.</p>
+    <p>En fin, afin de savoir si les informations inférées au cours de cette étude peuvent être vraies dans d’autres championnats, nous allons faire une étude comparatives des championnats.</p>
+    </div>
+    </section>
 
 
 
